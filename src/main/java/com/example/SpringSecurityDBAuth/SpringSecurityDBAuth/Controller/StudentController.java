@@ -6,16 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/students")
 public class StudentController {
 
-    @GetMapping("/hi")
-    public String getHello(){
-        return "Hello, Admin";
+    @GetMapping("/student")
+    public String getStudent(){
+        return "Hello, Student";
     }
 
-    @GetMapping("/hi")
-    public String getHello(){
-        return "Hello, Admin";
+    @GetMapping("/teacher")
+    public String getTeacher(){
+        return "Hello, Teacher";
     }
 }
