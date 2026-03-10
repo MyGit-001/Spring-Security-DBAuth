@@ -30,7 +30,7 @@
   ◦ .anyRequest().authenticated(): A crucial rule that requires authentication for any other request in the application that hasn't been matched yet. \
 • .formLogin(...): Enables form-based authentication. Spring Security will automatically generate a login page at /login. \
 ◦ .successHandler(authenticationSuccessHandler()): Specifies a custom handler to be invoked upon successful authentication. We pass it the authenticationSuccessHandler bean defined below. \
-• return http.build(): Constructs the SecurityFilterChain. \
+• return http.build(): Constructs the SecurityFilterChain. 
 
 
 ### AuthenticationSuccessHandler Bean
@@ -53,7 +53,7 @@
 • authentication.getAuthorities(): This retrieves the set of roles (authorities) assigned to the authenticated user. \
 • .stream().anyMatch(a -> a.getAuthority().equals("ROLE_STUD")): This code checks if the user's authorities contain ROLE_STUD. \
 • response.sendRedirect("/student"): If the user is a student, the browser is redirected to the /student page. \
-• The else if block performs the same check for the teacher and redirects to the /teacher page. \
+• The else if block performs the same check for the teacher and redirects to the /teacher page. 
 
 ### StudentController
 ```Java
@@ -72,9 +72,9 @@ public class StudentController {
 }
 ```
 
-• @RestController: A Spring annotation that marks this class as a request handler. It combines @Controller and @ResponseBody, meaning the return value of the methods will be the response body itself (e.g., plain text or JSON). /
-• @GetMapping("/student"): Maps HTTP GET requests for the /student path to the getStudent() method. /
-• @GetMapping("/teacher"): Maps HTTP GET requests for the /teacher path to the getTeacher() method. /
+• @RestController: A Spring annotation that marks this class as a request handler. It combines @Controller and @ResponseBody, meaning the return value of the methods will be the response body itself (e.g., plain text or JSON). \
+• @GetMapping("/student"): Maps HTTP GET requests for the /student path to the getStudent() method. \
+• @GetMapping("/teacher"): Maps HTTP GET requests for the /teacher path to the getTeacher() method. 
 
 
 
