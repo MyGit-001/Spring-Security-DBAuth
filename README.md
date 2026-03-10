@@ -1,6 +1,6 @@
 ## Let's have a walkthrough at each and every bit of code that we have in our application
 
-•** @Configuration**: This annotation marks the class as a source of bean definitions for the Spring application context. \
+• **@Configuration**: This annotation marks the class as a source of bean definitions for the Spring application context. \
 • **@EnableWebSecurity**: This key annotation enables Spring Security's web security support and integrates it with Spring MVC.
 
 ### UserDetailsService Bean
