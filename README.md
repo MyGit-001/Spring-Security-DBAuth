@@ -48,5 +48,33 @@
 }
 ```
 
+• @Bean: Creates the AuthenticationSuccessHandler bean. \
+• This bean is implemented as a lambda expression for simplicity. It gets executed after a user logs in successfully. \
+• authentication.getAuthorities(): This retrieves the set of roles (authorities) assigned to the authenticated user. \
+• .stream().anyMatch(a -> a.getAuthority().equals("ROLE_STUD")): This code checks if the user's authorities contain ROLE_STUD. \
+• response.sendRedirect("/student"): If the user is a student, the browser is redirected to the /student page. \
+• The else if block performs the same check for the teacher and redirects to the /teacher page. \
+
+### StudentController
+```Java
+@RestController
+public class StudentController {
+
+    @GetMapping("/student")
+    public String getStudent(){
+        return "Hello, Student";
+    }
+
+    @GetMapping("/teacher")
+    public String getTeacher(){
+        return "Hello, Teacher";
+    }
+}
+```
+
+• @RestController: A Spring annotation that marks this class as a request handler. It combines @Controller and @ResponseBody, meaning the return value of the methods will be the response body itself (e.g., plain text or JSON). /
+• @GetMapping("/student"): Maps HTTP GET requests for the /student path to the getStudent() method. /
+• @GetMapping("/teacher"): Maps HTTP GET requests for the /teacher path to the getTeacher() method. /
+
 
 
