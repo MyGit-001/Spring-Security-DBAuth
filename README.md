@@ -47,11 +47,19 @@
     }
 }
 ```
+
+Lets breask down this code
 • **@Bean:** Creates the AuthenticationSuccessHandler bean. \
 • This bean is implemented as a lambda expression for simplicity. It gets executed after a user logs in successfully. \
 • **public AuthenticationSuccessHandler authenticationSuccessHandler():** This is the method signature. It declares a bean named authenticationSuccessHandler of type AuthenticationSuccessHandler. AuthenticationSuccessHandler is a Spring Security interface that defines a single method, onAuthenticationSuccess, which is called when a user is successfully authenticated. \
 • **return (...):** This method is returning an implementation of the AuthenticationSuccessHandler interface. \
-
+```Java
+    return (request, response, authentication) -> {
+```
+•(request, response, authentication) -> { ... }: This is a Java lambda expression. It's a concise way to create an anonymous implementation of an interface with a single method. In this case, it's implementing the onAuthenticationSuccess method. The parameters provided by Spring Security are:
+    ◦ request: The HttpServletRequest object, which contains information about the incoming web request. \
+    ◦ response: The HttpServletResponse object, which you can use to send a response back to the client (e.g., by redirecting them). \
+    ◦ authentication: The Authentication object. This is the most important part for us. It holds all the information about the successfully logged-in user, including their username, credentials, and, most importantly, their authorities (roles). \
 
 • **authentication.getAuthorities():** This retrieves the set of roles (authorities) assigned to the authenticated user. \
 • **.stream().anyMatch(a -> a.getAuthority().equals("ROLE_STUD")):** This code checks if the user's authorities contain ROLE_STUD. \
