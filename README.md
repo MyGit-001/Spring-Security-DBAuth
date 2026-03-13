@@ -49,6 +49,7 @@
 ```
 • **@Bean:** Creates the AuthenticationSuccessHandler bean. \
 • This bean is implemented as a lambda expression for simplicity. It gets executed after a user logs in successfully. \
+• **public AuthenticationSuccessHandler authenticationSuccessHandler():** This is the method signature. It declares a bean named authenticationSuccessHandler of type AuthenticationSuccessHandler. AuthenticationSuccessHandler is a Spring Security interface that defines a single method, onAuthenticationSuccess, which is called when a user is successfully authenticated. \
 • **authentication.getAuthorities():** This retrieves the set of roles (authorities) assigned to the authenticated user. \
 • **.stream().anyMatch(a -> a.getAuthority().equals("ROLE_STUD")):** This code checks if the user's authorities contain ROLE_STUD. \
 • **response.sendRedirect("/student"):** If the user is a student, the browser is redirected to the /student page. \
