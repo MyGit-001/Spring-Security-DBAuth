@@ -48,7 +48,7 @@
 }
 ```
 
-Lets breask down this code
+### Lets break down this code 
 • **@Bean:** Creates the AuthenticationSuccessHandler bean. \
 • This bean is implemented as a lambda expression for simplicity. It gets executed after a user logs in successfully. \
 • **public AuthenticationSuccessHandler authenticationSuccessHandler():** This is the method signature. It declares a bean named authenticationSuccessHandler of type AuthenticationSuccessHandler. AuthenticationSuccessHandler is a Spring Security interface that defines a single method, onAuthenticationSuccess, which is called when a user is successfully authenticated. \
@@ -56,28 +56,28 @@ Lets breask down this code
 ```Java
     return (request, response, authentication) -> {
 ```
-•(request, response, authentication) -> { ... }: This is a Java lambda expression. It's a concise way to create an anonymous implementation of an interface with a single method. In this case, it's implementing the onAuthenticationSuccess method. The parameters provided by Spring Security are:
-    ◦ request: The HttpServletRequest object, which contains information about the incoming web request. \
-    ◦ response: The HttpServletResponse object, which you can use to send a response back to the client (e.g., by redirecting them). \
-    ◦ authentication: The Authentication object. This is the most important part for us. It holds all the information about the successfully logged-in user, including their username, credentials, and, most importantly, their authorities (roles). \
+•**(request, response, authentication) -> { ... }:** This is a Java lambda expression. It's a concise way to create an anonymous implementation of an interface with a single method. In this case, it's implementing the onAuthenticationSuccess method. The parameters provided by Spring Security are: \
+    ◦ **request:** The HttpServletRequest object, which contains information about the incoming web request. \
+    ◦ **response:** The HttpServletResponse object, which you can use to send a response back to the client (e.g., by redirecting them). \
+    ◦ **authentication:** The Authentication object. This is the most important part for us. It holds all the information about the successfully logged-in user, including their username, credentials, and, most importantly, their authorities (roles). \
 ```Java
         if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_STUD"))){
 ```
 
-• authentication.getAuthorities(): This is the core of the logic. It retrieves a collection of GrantedAuthority objects from the Authentication object. Each GrantedAuthority represents a single permission or role assigned to the user (e.g., "ROLE_STUD", "ROLE_TEACH"). \
-• .stream(): This converts the collection of authorities into a Java Stream, which provides a powerful way to process sequences of elements. \
-• .anyMatch(...): This is a stream operation that checks if any element in the stream matches a given condition. It will stop and return true as soon as it finds a match. \ 
-• a -> a.getAuthority().equals("ROLE_STUD"): This is another lambda expression that defines the condition for anyMatch. \
+• **authentication.getAuthorities()**: This is the core of the logic. It retrieves a collection of GrantedAuthority objects from the Authentication object. Each GrantedAuthority represents a single permission or role assigned to the user (e.g., "ROLE_STUD", "ROLE_TEACH"). \
+• **.stream():** This converts the collection of authorities into a Java Stream, which provides a powerful way to process sequences of elements. \
+• **.anyMatch(...):** This is a stream operation that checks if any element in the stream matches a given condition. It will stop and return true as soon as it finds a match. \ 
+• **a -> a.getAuthority().equals("ROLE_STUD"):** This is another lambda expression that defines the condition for anyMatch. \
 ◦ a: Represents a single GrantedAuthority object from the stream. \
-◦ a.getAuthority(): This method returns the string representation of the authority (e.g., "ROLE_STUD"). \
-◦ .equals("ROLE_STUD"): This checks if the authority string is exactly "ROLE_STUD". \
+◦ **a.getAuthority()**: This method returns the string representation of the authority (e.g., "ROLE_STUD"). \
+◦ **.equals("ROLE_STUD"):** This checks if the authority string is exactly "ROLE_STUD". \
 So, this entire line reads as: "If any of the user's authorities is equal to the string 'ROLE_STUD'..."
 
 ```Java
            response.sendRedirect("/student");
 ```
 • If the if condition is true (the user is a student), this line is executed.
-• response.sendRedirect("/student"): This method on the HttpServletResponse object tells the user's browser to make a new request to the /student URL. This is how the redirection happens.
+• **response.sendRedirect("/student"):** This method on the HttpServletResponse object tells the user's browser to make a new request to the /student URL. This is how the redirection happens.
 
 
 ### StudentController
