@@ -22,13 +22,13 @@
         return new InMemoryUserDetailsManager(Student, Teacher);
     }
 ```
-• **@Bean:** This creates the SecurityFilterChain bean, which defines the security rules for HTTP requests. 
-• **HttpSecurity http:** The main object for configuring web-based security. 
-• **authorizeHttpRequests(...):** This is where you define which paths are secured and what roles are required to access them. 
-  ◦ **.requestMatchers("/student")**.hasRole("STUD"): Only allows users with the "STUD" role to access URLs starting with /student. 
-  ◦ **.requestMatchers("/teacher").hasRole("TEACH"):** Only allows users with the "TEACH" role to access URLs starting with /teacher. 
-  ◦ **.anyRequest().authenticated():** A crucial rule that requires authentication for any other request in the application that hasn't been matched yet. 
-• **.formLogin(...):** Enables form-based authentication. Spring Security will automatically generate a login page at /login. 
+• **@Bean:** This creates the SecurityFilterChain bean, which defines the security rules for HTTP requests. \
+• **HttpSecurity http:** The main object for configuring web-based security.  \
+• **authorizeHttpRequests(...):** This is where you define which paths are secured and what roles are required to access them.  \
+  ◦ **.requestMatchers("/student")**.hasRole("STUD"): Only allows users with the "STUD" role to access URLs starting with /student. \
+  ◦ **.requestMatchers("/teacher").hasRole("TEACH"):** Only allows users with the "TEACH" role to access URLs starting with /teacher. \
+  ◦ **.anyRequest().authenticated():** A crucial rule that requires authentication for any other request in the application that hasn't been matched yet. \
+• **.formLogin(...):** Enables form-based authentication. Spring Security will automatically generate a login page at /login. \
 ◦ **.successHandler(authenticationSuccessHandler()):** Specifies a custom handler to be invoked upon successful authentication. We pass it the authenticationSuccessHandler bean defined below. 
 • **return http.build():** Constructs the SecurityFilterChain. 
 
@@ -67,18 +67,18 @@ The authentication parameter in your lambda corresponds to the Authentication ob
 ### Lets understand this from the actual flow 
 
 🔄 Authentication Flow
-- User submits credentials (e.g., username + password). \
-- AuthenticationManager delegates to an AuthenticationProvider (commonly DaoAuthenticationProvider). \
-- The provider calls your UserDetailsService to load the UserDetails for that username. \
-- This gives Spring Security the stored password and authorities (roles). \
-- The provider compares the submitted credentials with the stored ones (using a PasswordEncoder). \
-- If they match, authentication is successful. \
-- A fully populated Authentication object is created: \
-    - principal → the UserDetails (or username). \
-    - authorities → roles like ROLE_STUD, ROLE_TEACH. \
-    - authenticated = true. \
-- That Authentication object is stored in the SecurityContext. \
-- Finally, the AuthenticationSuccessHandler is triggered, and Spring passes that Authentication object into your onAuthenticationSuccess() method. \
+- User submits credentials (e.g., username + password). 
+- AuthenticationManager delegates to an AuthenticationProvider (commonly DaoAuthenticationProvider). 
+- The provider calls your UserDetailsService to load the UserDetails for that username. 
+- This gives Spring Security the stored password and authorities (roles). 
+- The provider compares the submitted credentials with the stored ones (using a PasswordEncoder). 
+- If they match, authentication is successful.
+- A fully populated Authentication object is created: 
+    - principal → the UserDetails (or username). 
+    - authorities → roles like ROLE_STUD, ROLE_TEACH. 
+    - authenticated = true. 
+- That Authentication object is stored in the SecurityContext. 
+- Finally, the AuthenticationSuccessHandler is triggered, and Spring passes that Authentication object into your onAuthenticationSuccess() method. 
 
   
 ```Java
