@@ -86,12 +86,15 @@ The authentication parameter in your lambda corresponds to the Authentication ob
 ```
 
 • **authentication.getAuthorities()**: This is the core of the logic. It retrieves a collection of GrantedAuthority objects from the Authentication object. Each GrantedAuthority represents a single permission or role assigned to the user (e.g., "ROLE_STUD", "ROLE_TEACH"). \
-• **.stream():** This converts the collection of authorities into a Java Stream, which provides a powerful way to process sequences of elements. \
-• **.anyMatch(...):** This is a stream operation that checks if any element in the stream matches a given condition. It will stop and return true as soon as it finds a match. \ 
-• **a -> a.getAuthority().equals("ROLE_STUD"):** This is another lambda expression that defines the condition for anyMatch. \
-◦ a: Represents a single GrantedAuthority object from the stream. \
-◦ **a.getAuthority()**: This method returns the string representation of the authority (e.g., "ROLE_STUD"). \
-◦ **.equals("ROLE_STUD"):** This checks if the authority string is exactly "ROLE_STUD". \
+- authentication.getAuthorities() returns a Collection<? extends GrantedAuthority>.
+Each element in that collection is a GrantedAuthority object, which represents a single role/authority granted to the user (like ROLE_STUD or ROLE_TEACH).
+- .stream() turns that collection into a stream so you can process it with functional operations.
+- .anyMatch(a -> a.getAuthority().equals("ROLE_STUD")) means:
+“Check if there exists any GrantedAuthority object a in the stream such that a.getAuthority() equals "ROLE_STUD".”
+
+    ◦ a: Represents a single GrantedAuthority object from the stream. \
+    ◦ **a.getAuthority()**: This method returns the string representation of the authority (e.g., "ROLE_STUD"). \
+    ◦ **.equals("ROLE_STUD"):** This checks if the authority string is exactly "ROLE_STUD". \
 So, this entire line reads as: "If any of the user's authorities is equal to the string 'ROLE_STUD'..."
 
 ```Java
