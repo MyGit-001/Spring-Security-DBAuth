@@ -56,10 +56,31 @@
 ```Java
     return (request, response, authentication) -> {
 ```
-•**(request, response, authentication) -> { ... }:** This is a Java lambda expression. It's a concise way to create an anonymous implementation of an interface with a single method. In this case, it's implementing the onAuthenticationSuccess method. The parameters provided by Spring Security are: \
+is indeed a lambda expression that provides an implementation of the onAuthenticationSuccess() method from the AuthenticationSuccessHandler interface. \
+- The lambda (request, response, authentication) -> { ... } is shorthand for writing an anonymous class that overrides onAuthenticationSuccess(). \
+- The parameters request, response, and authentication are exactly the ones expected by that method signature. \
     ◦ **request:** The HttpServletRequest object, which contains information about the incoming web request. \
     ◦ **response:** The HttpServletResponse object, which you can use to send a response back to the client (e.g., by redirecting them). \
-    ◦ **authentication:** The Authentication object. This is the most important part for us. It holds all the information about the successfully logged-in user, including their username, credentials, and, most importantly, their authorities (roles). \
+    ◦ **authentication:** The Authentication object. This is the most important part for us. It holds all the information about the successfully logged-in user, including their username, credentials, and, most importantly, their authorities (roles).
+
+The authentication parameter in your lambda corresponds to the Authentication object that Spring Security passes into the onAuthenticationSuccess() method. 
+### Lets understand this from the actual flow 
+
+🔄 Authentication Flow
+- User submits credentials (e.g., username + password). \
+- AuthenticationManager delegates to an AuthenticationProvider (commonly DaoAuthenticationProvider). \
+- The provider calls your UserDetailsService to load the UserDetails for that username. \
+- This gives Spring Security the stored password and authorities (roles). \
+- The provider compares the submitted credentials with the stored ones (using a PasswordEncoder). \
+- If they match, authentication is successful. \
+- A fully populated Authentication object is created: \
+    - principal → the UserDetails (or username). \
+    - authorities → roles like ROLE_STUD, ROLE_TEACH. \
+    - authenticated = true. \
+- That Authentication object is stored in the SecurityContext. \
+- Finally, the AuthenticationSuccessHandler is triggered, and Spring passes that Authentication object into your onAuthenticationSuccess() method. \
+
+  
 ```Java
         if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_STUD"))){
 ```
