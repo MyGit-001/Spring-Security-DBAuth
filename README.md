@@ -22,14 +22,14 @@
         return new InMemoryUserDetailsManager(Student, Teacher);
     }
 ```
-• **@Bean:** This creates the SecurityFilterChain bean, which defines the security rules for HTTP requests. \
-• **HttpSecurity http:** The main object for configuring web-based security. \
-• **authorizeHttpRequests(...):** This is where you define which paths are secured and what roles are required to access them. \
-  ◦ **.requestMatchers("/student")**.hasRole("STUD"): Only allows users with the "STUD" role to access URLs starting with /student. \
-  ◦ **.requestMatchers("/teacher").hasRole("TEACH"):** Only allows users with the "TEACH" role to access URLs starting with /teacher. \
-  ◦ **.anyRequest().authenticated():** A crucial rule that requires authentication for any other request in the application that hasn't been matched yet. \
-• **.formLogin(...):** Enables form-based authentication. Spring Security will automatically generate a login page at /login. \
-◦ **.successHandler(authenticationSuccessHandler()):** Specifies a custom handler to be invoked upon successful authentication. We pass it the authenticationSuccessHandler bean defined below. \
+• **@Bean:** This creates the SecurityFilterChain bean, which defines the security rules for HTTP requests. 
+• **HttpSecurity http:** The main object for configuring web-based security. 
+• **authorizeHttpRequests(...):** This is where you define which paths are secured and what roles are required to access them. 
+  ◦ **.requestMatchers("/student")**.hasRole("STUD"): Only allows users with the "STUD" role to access URLs starting with /student. 
+  ◦ **.requestMatchers("/teacher").hasRole("TEACH"):** Only allows users with the "TEACH" role to access URLs starting with /teacher. 
+  ◦ **.anyRequest().authenticated():** A crucial rule that requires authentication for any other request in the application that hasn't been matched yet. 
+• **.formLogin(...):** Enables form-based authentication. Spring Security will automatically generate a login page at /login. 
+◦ **.successHandler(authenticationSuccessHandler()):** Specifies a custom handler to be invoked upon successful authentication. We pass it the authenticationSuccessHandler bean defined below. 
 • **return http.build():** Constructs the SecurityFilterChain. 
 
 
